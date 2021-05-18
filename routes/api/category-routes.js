@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../Develop/models');
+const { Category, Product } = require('../../models');
 
 
 router.get('/', async (req, res) => {
@@ -50,7 +50,12 @@ router.put('/:id', async (req, res) => {
         },
       })
       .then((updatedCategory) => {
-        res.json(updatedCategory);
+        if(updatedCategory[0] === 1) {
+          res.json("successfully Updated")
+        }
+        else{
+          res.json("Update  Unsuccessful")
+        }
       })
   } catch (err) {
     res.status(500).json(err);
@@ -68,7 +73,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ message: 'No category found' });
       return;
     }
-    res.status(200).json(categoryToDel);
+    else{res.json ("successfully deleted")}
   } catch (err) {
     res.status(500).json(err);
   }
